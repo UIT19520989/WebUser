@@ -1,11 +1,4 @@
-import { Row, Col, Breadcrumb, Badge, Button, Input, Drawer, Typography, Switch } from 'antd';
-
-import { SearchOutlined, GithubOutlined, FacebookFilled } from '@ant-design/icons';
-
-// import { SearchOutlined, StarOutlined, TwitterOutlined, FacebookFilled } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
-import { bell, profile, setting } from '~/components/Icons';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
