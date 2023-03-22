@@ -4,6 +4,17 @@ import { publicRoutes } from '~/routes';
 import DefaultLayout from '~/layouts/DefaultLayout';
 
 function App() {
+    var hours = 0.4;
+    var now = new Date().getTime();
+    var setupTime = localStorage.getItem('setupTime');
+    if (setupTime == null) {
+        localStorage.setItem('setupTime', now);
+    } else {
+        if (now - setupTime > hours * 60 * 60 * 1000) {
+            localStorage.clear();
+            localStorage.setItem('setupTime', now);
+        }
+    }
     return (
         <Router>
             <div className="App">
@@ -11,7 +22,6 @@ function App() {
                     {publicRoutes.map((route, index) => {
                         const Page = route.component;
                         let Layout = DefaultLayout;
-                        console.log(Page);
                         if (route.layout) {
                             Layout = route.layout;
                         } else if (route.layout === null) {

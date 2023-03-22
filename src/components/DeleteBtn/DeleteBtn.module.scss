@@ -1,0 +1,15 @@
+.deleteBtn {
+    height: 34px;
+    font-size: 12px;
+    box-shadow: none;
+    color: #ff4d4f;
+    border-color: transparent;
+    background: 0 0;
+    cursor: pointer;
+    svg,
+    span {
+        vertical-align: middle;
+        margin-right: 5px;
+        font-weight: 600;
+    }
+}
