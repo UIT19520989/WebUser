@@ -11,26 +11,37 @@ import {
     registerSuccess,
 } from './authSlice';
 import { BASE_URL_AUTH, BASE_URL_USER } from '../utils/api';
-import { deleteFailed, deleteStart, deleteSuccess, getFailed, getStart, getSuccess } from './userSlice';
+import {
+    deleteFailed,
+    deleteStart,
+    deleteSuccess,
+    getFailed,
+    getStart,
+    getSuccess,
+    getUserFailed,
+    getUserStart,
+    getUserSuccess,
+    updateFailed,
+    updateStart,
+    updateSuccess,
+} from './userSlice';
 import { headers } from '~/utils/headers';
 
-export const loginUser = async (user, dispatch, navigate) => {
+export const loginUser = (user, navigate) => async (dispatch) => {
     dispatch(loginStart());
     try {
         const res = await axios.post(`${BASE_URL_AUTH}/login`, user);
+        await localStorage.setItem('accessToken', res.data?.accessToken);
+        await localStorage.setItem('isAdmin', res.data?.isAdmin);
+        await localStorage.setItem('id', res.data?._id);
         dispatch(loginSuccess(res.data));
-        const { username, accessToken, isAdmin, _id } = res.data;
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('username', username);
-        localStorage.setItem('isAdmin', isAdmin);
-        localStorage.setItem('id', _id);
-        navigate('/');
+        res.data?.isAdmin ? navigate('/') : navigate('/profile');
     } catch (error) {
         dispatch(loginFailed());
     }
 };
 
-export const registerUser = async (user, dispatch, navigate) => {
+export const registerUser = (user, navigate) => async (dispatch) => {
     dispatch(registerStart());
     try {
         await axios.post(`${BASE_URL_AUTH}/register`, user);
@@ -43,6 +54,10 @@ export const registerUser = async (user, dispatch, navigate) => {
 
 export const getAllUsers = async (dispatch) => {
     dispatch(getStart());
+    const token = await localStorage.getItem('accessToken');
+    const headers = {
+        token: `Bearer ${token}`,
+    };
     try {
         const res = await axios.get(`${BASE_URL_USER}`, {
             headers,
@@ -73,9 +88,40 @@ export const logoutUser = async (dispatch, _id) => {
         await axios.post(`${BASE_URL_AUTH}/logout`, _id, {
             headers,
         });
+        dispatch(getUserSuccess(null));
         dispatch(logoutSuccess());
         localStorage.clear();
     } catch (error) {
         dispatch(logoutFailed());
+    }
+};
+
+export const getUserById = async (dispatch, id) => {
+    dispatch(getUserStart());
+    const token = await localStorage.getItem('accessToken');
+    const headers = {
+        token: `Bearer ${token}`,
+    };
+    try {
+        const res = await axios.get(`${BASE_URL_USER}/${id}`, {
+            headers,
+        });
+        dispatch(getUserSuccess(res.data));
+    } catch (error) {
+        dispatch(getUserFailed());
+    }
+};
+
+export const updateUser = async (dispatch, id, newData) => {
+    dispatch(updateStart());
+    try {
+        const res = await axios.put(`${BASE_URL_USER}/${id}/update`, newData, {
+            headers,
+        });
+        dispatch(updateSuccess(res.data, ''));
+        localStorage.setItem('updateState', 'success');
+    } catch (error) {
+        dispatch(updateFailed(error.response.data));
+        localStorage.setItem('updateState', 'error');
     }
 };

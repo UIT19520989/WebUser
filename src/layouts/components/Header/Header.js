@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '~/redux/apiRequest';
+import { useSelector } from 'react-redux';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Badge, Breadcrumb, Button, Col, Drawer, Dropdown, Input, Row, Switch, Typography } from 'antd';
+import { bell, profile, setting, toggler } from '~/components/Icons';
+import { FacebookFilled, GithubOutlined } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
@@ -30,17 +33,8 @@ const ButtonContainer = styled.div`
         background-color: #1890ff;
     }
 `;
-const Header = ({ placement, name, handleSidenavColor, handleSidenavType, handleFixedNavbar }) => {
-    const dispatch = useDispatch();
+const Header = ({ placement, name, handleSidenavColor, onPress, handleSidenavType, handleFixedNavbar }) => {
     const navigate = useNavigate();
-    const user = localStorage.getItem('accessToken');
-
-    useEffect(() => {
-        if (!user) {
-            navigate('/signin');
-        }
-        getAllUsers(dispatch);
-    }, [dispatch]);
 
     const { Title, Text } = Typography;
 
@@ -52,8 +46,29 @@ const Header = ({ placement, name, handleSidenavColor, handleSidenavType, handle
     const showDrawer = () => setVisible(true);
     const hideDrawer = () => setVisible(false);
     const userList = useSelector((state) => state.user.user?.allUsers);
-    const username = localStorage.getItem('username');
-    // const username = useSelector((state) => state.auth.login.currentUser?.username);
+    const username = useSelector((state) => state.user.user?.userId?.username);
+
+    let numOfAds = 0;
+    let numOfUsr = 0;
+
+    userList?.forEach((element) => {
+        element.isAdmin ? ++numOfAds : ++numOfUsr;
+    });
+
+    const handleSearch = (value) => {
+        navigate('/tables', { state: { value } });
+    };
+
+    const items = [
+        {
+            key: '1',
+            label: `Number of Admins: ${numOfAds}`,
+        },
+        {
+            key: '2',
+            label: `Number of Users: ${numOfUsr}`,
+        },
+    ];
 
     return (
         <>
@@ -65,7 +80,7 @@ const Header = ({ placement, name, handleSidenavColor, handleSidenavType, handle
                     <Breadcrumb
                         items={[
                             {
-                                title: <NavLink to="/">Pages</NavLink>,
+                                title: <NavLink to="/profile">Pages</NavLink>,
                             },
                             {
                                 title: <div style={{ textTransform: 'capitalize' }}>{name.replace('/', '')}</div>,
@@ -79,12 +94,9 @@ const Header = ({ placement, name, handleSidenavColor, handleSidenavType, handle
                     </div>
                 </Col>
                 <Col span={24} md={18} className="header-control">
-                    {/* <Button type="link" onClick={showDrawer}>
-                        {logsetting}
-                    </Button> */}
-                    {/* <Button type="link" className={cx('sidebar-toggler')} onClick={() => onPress()}>
+                    <Button type="link" className="sidebar-toggler" onClick={() => onPress()}>
                         {toggler}
-                    </Button> */}
+                    </Button>
                     <Drawer
                         className="settings-drawer"
                         mask={true}
@@ -152,16 +164,31 @@ const Header = ({ placement, name, handleSidenavColor, handleSidenavType, handle
                             </div>
                         </div>
                     </Drawer>
-                    <Badge size="small" count={userList?.length}>
-                        <a href="#pablo" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-                            {bell}
-                        </a>
-                    </Badge>
-                    <Link to="/signin" className="btn-sign-in">
+                    <Dropdown
+                        menu={{
+                            items,
+                        }}
+                        placement="bottomRight"
+                    >
+                        <Button type="link">
+                            <Badge size="small" count={userList?.length}>
+                                {bell}
+                            </Badge>
+                        </Button>
+                    </Dropdown>
+
+                    <Link to="/profile" className="btn-sign-in">
                         {profile}
                         <span>{username}</span>
                     </Link>
-                    <Input className="header-search" placeholder="Type here..." prefix={<SearchOutlined />} />
+                    <Input.Search
+                        onSearch={(value) => {
+                            handleSearch(value);
+                        }}
+                        className="header-search"
+                        placeholder="Type username here..."
+                        allowClear
+                    />
                 </Col>
             </Row>
         </>

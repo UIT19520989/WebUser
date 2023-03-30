@@ -48,13 +48,15 @@ function HeaderCo() {
     return (
         <Header>
             <div className="header-col header-brand">
-                <h5>Muse Dashboard</h5>
+                <h5>Cules Dashboard</h5>
             </div>
             <div className="header-col header-nav">
                 <Menu mode="horizontal" items={items}></Menu>
             </div>
             <div className="header-col header-btn">
-                <Button type="false">FREE DOWNLOAD</Button>
+                <Button type="false">
+                    <a href="https://github.com/UIT19520989">FREE DOWNLOAD</a>
+                </Button>
             </div>
         </Header>
     );

@@ -286,7 +286,7 @@ html *::-webkit-scrollbar-track {
 }
 
 .layout-dashboard .ant-layout-sider.sider-primary .aside-footer {
-    padding-top: 100px;
+    padding-top: 200px;
     padding-bottom: 33px;
 }
 
@@ -401,7 +401,24 @@ html *::-webkit-scrollbar-track {
     margin: 0 7px 0 0;
     border-radius: 6px;
     height: 40px;
-    border: 1px solid #d9d9d9;
+    border: none;
+}
+
+.layout-dashboard .header-control .header-search span {
+    height: 100%;
+}
+
+.layout-dashboard .header-control .header-search span .ant-input-suffix {
+    display: block;
+}
+
+.layout-dashboard .header-control .header-search span .ant-input-group-addon button {
+    height: 100%;
+    display: block;
+}
+
+:where(.css-dev-only-do-not-override-ph9edi).ant-input-search > .ant-input-group > .ant-input-group-addon:last-child {
+    inset-inline-start: 0px;
 }
 
 .layout-dashboard .header-control .header-search input.ant-input {
@@ -426,6 +443,10 @@ html *::-webkit-scrollbar-track {
 .layout-dashboard .ant-card {
     border-radius: 12px;
     box-shadow: 0 20px 27px rgb(0 0 0/5%);
+}
+
+.h-full {
+    height: 100%;
 }
 
 .tablespace {
@@ -542,7 +563,7 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile .btn-sig
 }
 
 .layout-profile .ant-card-head {
-    padding: 0 16px;
+    padding: 0 24px;
 }
 
 section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
@@ -576,4 +597,144 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
 
 .fill-gray-7 {
     fill: #8c8c8c !important;
+}
+
+:where(.css-dev-only-do-not-override-ph9edi).ant-popconfirm .ant-popconfirm-buttons button {
+    height: fit-content;
+}
+
+.ant-card-head-title {
+    padding: 16px 0;
+}
+
+.card-profile-head .ant-card-head .avatar-info {
+    margin-left: 16px;
+}
+
+.card-profile-head .ant-card-head .avatar-info h4 {
+    font-size: 24px;
+}
+
+.ant-card-head-title p {
+    font-weight: 600;
+    color: #8c8c8c;
+    margin-bottom: 0;
+    font-size: 15px;
+    margin: 0;
+}
+
+.mb-32 {
+    margin-bottom: 32px;
+}
+
+.ant-card-head-title h6 {
+    margin-bottom: 0;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+h6 {
+    font-size: 17px;
+}
+
+:where(.css-dev-only-do-not-override-ph9edi).ant-descriptions
+    .ant-descriptions-item-container
+    .ant-descriptions-item-label {
+    display: flex;
+    align-items: center;
+}
+:where(.css-dev-only-do-not-override-ph9edi).ant-descriptions .ant-descriptions-item-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8c8c8c;
+}
+
+:where(.css-dev-only-do-not-override-ph9edi).ant-descriptions .ant-descriptions-item-content {
+    font-size: 14px;
+    font-weight: 600;
+    color: #141414;
+}
+
+.p-5,
+.pr-5,
+.px-5 {
+    padding-right: 5px !important;
+}
+.p-5,
+.pl-5,
+.px-5 {
+    padding-left: 5px !important;
+}
+.m-5,
+.mr-5,
+.mx-5 {
+    margin-right: 5px !important;
+}
+.m-5,
+.ml-5,
+.mx-5 {
+    margin-left: 5px !important;
+}
+
+.col-action button:hover {
+    opacity: 0.8;
+    border-radius: 6px;
+}
+
+.ant-card-extra button:hover {
+    opacity: 0.8;
+    border-radius: 6px;
+}
+
+.ant-descriptions-item-content .ant-input {
+    height: auto;
+    width: 60%;
+}
+
+.ant-descriptions-item-content .ant-form-item {
+    margin: 0;
+}
+
+.layout-profile .ant-card .ant-card-body {
+    padding-top: 0px;
+}
+
+.layout-profile .ant-card .ant-card-body .ant-table th.ant-table-cell {
+    font-size: 17px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.88);
+    padding-block: 22px;
+}
+
+.bar-chart {
+    background: transparent linear-gradient(62deg, #00369e, #005cfd 53%, #a18dff) 0 0 no-repeat padding-box;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12156862745098039);
+    border-radius: 8px;
+}
+
+.sidebar-toggler {
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+}
+
+.ant-layout-header .ant-btn {
+    box-shadow: none;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+
+section.ant-layout.ant-layout-has-sider.layout-dashboard .header-control span.anticon.anticon-search svg path {
+    fill: inherit !important;
+}
+
+:where(.css-dev-only-do-not-override-ph9edi).ant-spin-nested-loading > div > .ant-spin {
+    top: 15%;
 }

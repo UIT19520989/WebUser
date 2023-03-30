@@ -1,5 +1,5 @@
-const token = localStorage.getItem("accessToken");
+const token = localStorage.getItem('accessToken');
 
 export const headers = {
-  token: `Bearer ${token}`,
+    token: `Bearer ${token}`,
 };

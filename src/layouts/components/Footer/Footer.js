@@ -12,8 +12,8 @@ function Footer() {
                     <div className="copyright">
                         © 2021, made with
                         {<HeartFilled />} by
-                        <a href="#pablo" className="font-weight-bold" target="_blank">
-                            Creative Tim
+                        <a href="https://github.com/UIT19520989" className="font-weight-bold">
+                            NVT
                         </a>
                         for a better web.
                     </div>
@@ -21,22 +21,22 @@ function Footer() {
                 <Col xs={24} md={12} lg={12}>
                     <div className="footer-menu">
                         <ul>
-                            <li className="nav-item">
+                            <li key="0" className="nav-item">
                                 <a href="#pablo" className="nav-link text-muted" target="_blank">
                                     Creative Tim
                                 </a>
                             </li>
-                            <li className="nav-item">
+                            <li key="1" className="nav-item">
                                 <a href="#pablo" className="nav-link text-muted" target="_blank">
                                     About Us
                                 </a>
                             </li>
-                            <li className="nav-item">
+                            <li key="2" className="nav-item">
                                 <a href="#pablo" className="nav-link text-muted" target="_blank">
                                     Blog
                                 </a>
                             </li>
-                            <li className="nav-item">
+                            <li key="3" className="nav-item">
                                 <a href="#pablo" className="nav-link pe-0 text-muted" target="_blank">
                                     License
                                 </a>

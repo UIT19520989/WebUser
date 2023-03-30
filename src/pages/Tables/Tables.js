@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Radio, Table, Avatar, Typography, notification, Popconfirm } from 'antd';
+import { Row, Col, Card, Radio, Table, Avatar, Typography, notification, Modal } from 'antd';
 
 // import { ToTopOutlined } from '@ant-design/icons';
 // import { Link } from 'react-router-dom';
@@ -8,54 +8,67 @@ import userface from '../../assets/imgs/user.webp';
 import DeleteBtn from '~/components/DeleteBtn';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, getAllUsers } from '~/redux/apiRequest';
+import { ExclamationCircleFilled } from '@ant-design/icons';
+import { useLocation } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import { getAllUsers } from '~/redux/apiRequest';
 
 const { Title } = Typography;
-
-const columns = [
-    {
-        title: 'USER',
-        dataIndex: 'username',
-        key: 'username',
-        width: '32%',
-        sorter: (record1, record2) => {
-            return record1.username.props.children.props.children[1].props.children[0].props.children.localeCompare(
-                record2.username.props.children.props.children[1].props.children[0].props.children,
-            );
-        },
-    },
-    {
-        title: 'FUNCTION',
-        dataIndex: 'function',
-        key: 'function',
-        sorter: (record1, record2) => {
-            return (
-                record1.function.props.children.props.children[0].props.children >
-                record2.function.props.children.props.children[0].props.children
-            );
-        },
-    },
-
-    {
-        title: 'EMPLOYED',
-        key: 'employed',
-        dataIndex: 'employed',
-        sorter: (record1, record2) => {
-            console.log(record1.employed.props.children.props.children.props.children[0].props.children);
-            return (
-                record1.employed.props.children.props.children.props.children[0].props.children >
-                record2.employed.props.children.props.children.props.children[0].props.children
-            );
-        },
-    },
-    {
-        title: '',
-        key: 'btn',
-        dataIndex: 'btn',
-    },
-];
+const { confirm } = Modal;
 
 const Tables = () => {
+    const location = useLocation();
+    const valueSearch = location.state?.value;
+
+    const columns = [
+        {
+            title: 'USER',
+            dataIndex: 'username',
+            key: 'username',
+            width: '32%',
+            sorter: (record1, record2) => {
+                return record1.username.props.children.props.children[1].props.children[0].props.children.localeCompare(
+                    record2.username.props.children.props.children[1].props.children[0].props.children,
+                );
+            },
+            filteredValue: [valueSearch ? valueSearch : ''],
+            onFilter: (value, record) => {
+                return String(record.username.props.children.props.children[1].props.children[0].props.children)
+                    .toLowerCase()
+                    .includes(value.toLowerCase());
+            },
+        },
+        {
+            title: 'FUNCTION',
+            dataIndex: 'function',
+            key: 'function',
+            sorter: (record1, record2) => {
+                return (
+                    record1.function.props.children.props.children[0].props.children >
+                    record2.function.props.children.props.children[0].props.children
+                );
+            },
+        },
+
+        {
+            title: 'EMPLOYED',
+            key: 'employed',
+            dataIndex: 'employed',
+            sorter: (record1, record2) => {
+                console.log(record1.employed.props.children.props.children.props.children[0].props.children);
+                return (
+                    record1.employed.props.children.props.children.props.children[0].props.children >
+                    record2.employed.props.children.props.children.props.children[0].props.children
+                );
+            },
+        },
+        {
+            title: '',
+            key: 'btn',
+            dataIndex: 'btn',
+        },
+    ];
+
     const dispatch = useDispatch();
     const [userList, setUserList] = useState(null);
     const allUsers = useSelector((state) => state.user.user?.allUsers);
@@ -72,15 +85,17 @@ const Tables = () => {
     const [api, contextHolder] = notification.useNotification();
 
     const openNotificationWithIcon = (type) => {
-        api[type]({
-            message: msg ? msg : 'success',
-        });
+        if (api[type]) {
+            api[type]({
+                message: msg ? msg : `Delete ${type}`,
+            });
+        }
     };
 
     const [data, setData] = useState(null);
 
-    const handleDelete = (id) => {
-        deleteUser(dispatch, id);
+    const handleDelete = async (id) => {
+        await deleteUser(dispatch, id);
         msgState = localStorage.getItem('deleteState');
         openNotificationWithIcon(msgState);
         getAllUsers(dispatch);
@@ -92,6 +107,23 @@ const Tables = () => {
                 }),
             );
         }
+    };
+
+    const showDeleteConfirm = (id) => {
+        confirm({
+            title: 'Are you sure delete this user?',
+            icon: <ExclamationCircleFilled />,
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk() {
+                console.log('OK');
+                handleDelete(id);
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
     };
 
     const render = (userList) =>
@@ -137,7 +169,7 @@ const Tables = () => {
                     <div
                         style={{ width: 'fit-content' }}
                         onClick={() => {
-                            handleDelete(item._id);
+                            showDeleteConfirm(item._id);
                         }}
                     >
                         <DeleteBtn />

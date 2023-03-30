@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Button } from 'antd';
 import { NavLink, useLocation } from 'react-router-dom';
-import logo from '~/assets/imgs/logo.png';
+import logo from '~/assets/imgs/dash.png';
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import { LogoutOutlined } from '@ant-design/icons';
@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { logoutUser } from '~/redux/apiRequest';
 const cx = classNames.bind(styles);
 
-function Sidebar({ color }) {
+function Sidebar({ isAdmin, color }) {
     const { pathname } = useLocation();
     let page = pathname.replace('/', '');
     page = page ? page : 'dashboard';
@@ -52,18 +52,6 @@ function Sidebar({ color }) {
         </svg>,
     ];
 
-    const billing = [
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" key={0}>
-            <path d="M4 4C2.89543 4 2 4.89543 2 6V7H18V6C18 4.89543 17.1046 4 16 4H4Z" fill={color}></path>
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M18 9H2V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V9ZM4 13C4 12.4477 4.44772 12 5 12H6C6.55228 12 7 12.4477 7 13C7 13.5523 6.55228 14 6 14H5C4.44772 14 4 13.5523 4 13ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H10C10.5523 14 11 13.5523 11 13C11 12.4477 10.5523 12 10 12H9Z"
-                fill={color}
-            ></path>
-        </svg>,
-    ];
-
     const profile = [
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" key={0}>
             <path
@@ -76,122 +64,127 @@ function Sidebar({ color }) {
     ];
     const logout = <LogoutOutlined />;
 
-    // const signin = [
-    //     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" key={0}>
-    //         <path
-    //             fillRule="evenodd"
-    //             clipRule="evenodd"
-    //             d="M6 2C5.44772 2 5 2.44772 5 3V4H4C2.89543 4 2 4.89543 2 6V16C2 17.1046 2.89543 18 4 18H16C17.1046 18 18 17.1046 18 16V6C18 4.89543 17.1046 4 16 4H15V3C15 2.44772 14.5523 2 14 2C13.4477 2 13 2.44772 13 3V4H7V3C7 2.44772 6.55228 2 6 2ZM6 7C5.44772 7 5 7.44772 5 8C5 8.55228 5.44772 9 6 9H14C14.5523 9 15 8.55228 15 8C15 7.44772 14.5523 7 14 7H6Z"
-    //             fill={color}
-    //         ></path>
-    //     </svg>,
-    // ];
+    let items;
 
-    // const signup = [
-    //     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" key={0}>
-    //         <path
-    //             d="M0,2A2,2,0,0,1,2,0H8a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2H2A2,2,0,0,1,0,8Z"
-    //             transform="translate(4 4)"
-    //             fill={color}
-    //         />
-    //         <path d="M2,0A2,2,0,0,0,0,2V8a2,2,0,0,0,2,2V4A2,2,0,0,1,4,2h6A2,2,0,0,0,8,0Z" fill={color} />
-    //     </svg>,
-    // ];
-
-    const items = [
-        {
-            key: '1',
-            label: (
-                <NavLink className={cx('navLink')} to="/">
-                    <span
-                        className="icon"
-                        style={{
-                            background: page === 'dashboard' ? color : '',
-                        }}
-                    >
-                        {dashboard}
-                    </span>
-                    <span className="label">Dashboard</span>
-                </NavLink>
-            ),
-        },
-        {
-            key: '2',
-            label: (
-                <NavLink className={cx('navLink')} to="/tables">
-                    <span
-                        className="icon"
-                        style={{
-                            background: page === 'tables' ? color : '',
-                        }}
-                    >
-                        {tables}
-                    </span>
-                    <span className="label">Tables</span>
-                </NavLink>
-            ),
-        },
-        {
-            key: '3',
-            label: (
-                <NavLink className={cx('navLink')} to="/billing">
-                    <span
-                        className="icon"
-                        style={{
-                            background: page === 'billing' ? color : '',
-                        }}
-                    >
-                        {billing}
-                    </span>
-                    <span className="label">Billing</span>
-                </NavLink>
-            ),
-        },
-        {
-            key: '4',
-            label: <div className="menu-item-header">Account Pages</div>,
-        },
-        {
-            key: '5',
-            label: (
-                <NavLink className={cx('navLink')} to="/profile">
-                    <span
-                        className="icon"
-                        style={{
-                            background: page === 'profile' ? color : '',
-                        }}
-                    >
-                        {profile}
-                    </span>
-                    <span className="label">Profile</span>
-                </NavLink>
-            ),
-        },
-        {
-            key: '6',
-            label: (
-                <NavLink className={cx('navLink')} to="/signin" onClick={handleLogout}>
-                    <span className="icon">{logout}</span>
-                    <span className="label">Sign out</span>
-                </NavLink>
-            ),
-        },
-        // {
-        //     key: '7',
-        //     label: (
-        //         <NavLink className={cx('navLink')} to="/signup">
-        //             <span className="icon">{signup}</span>
-        //             <span className="label">Sign Up</span>
-        //         </NavLink>
-        //     ),
-        // },
-    ];
+    if (isAdmin) {
+        items = [
+            {
+                key: '1',
+                label: (
+                    <NavLink className={cx('navLink')} to="/">
+                        <span
+                            className="icon"
+                            style={{
+                                background: page === 'dashboard' ? color : '',
+                            }}
+                        >
+                            {dashboard}
+                        </span>
+                        <span className="label">Dashboard</span>
+                    </NavLink>
+                ),
+            },
+            {
+                key: '2',
+                label: (
+                    <NavLink className={cx('navLink')} to="/tables">
+                        <span
+                            className="icon"
+                            style={{
+                                background: page === 'tables' ? color : '',
+                            }}
+                        >
+                            {tables}
+                        </span>
+                        <span className="label">Tables</span>
+                    </NavLink>
+                ),
+            },
+            {
+                key: '3',
+                label: <div className="menu-item-header">Account Pages</div>,
+            },
+            {
+                key: '4',
+                label: (
+                    <NavLink className={cx('navLink')} to="/profile">
+                        <span
+                            className="icon"
+                            style={{
+                                background: page === 'profile' ? color : '',
+                            }}
+                        >
+                            {profile}
+                        </span>
+                        <span className="label">Profile</span>
+                    </NavLink>
+                ),
+            },
+            {
+                key: '5',
+                label: (
+                    <NavLink className={cx('navLink')} to="/signin" onClick={handleLogout}>
+                        <span className="icon">{logout}</span>
+                        <span className="label">Sign out</span>
+                    </NavLink>
+                ),
+            },
+        ];
+    } else {
+        items = [
+            {
+                key: '1',
+                label: (
+                    <NavLink className={cx('navLink')} to="/tables">
+                        <span
+                            className="icon"
+                            style={{
+                                background: page === 'tables' ? color : '',
+                            }}
+                        >
+                            {tables}
+                        </span>
+                        <span className="label">Tables</span>
+                    </NavLink>
+                ),
+            },
+            {
+                key: '2',
+                label: <div className="menu-item-header">Account Pages</div>,
+            },
+            {
+                key: '3',
+                label: (
+                    <NavLink className={cx('navLink')} to="/profile">
+                        <span
+                            className="icon"
+                            style={{
+                                background: page === 'profile' ? color : '',
+                            }}
+                        >
+                            {profile}
+                        </span>
+                        <span className="label">Profile</span>
+                    </NavLink>
+                ),
+            },
+            {
+                key: '4',
+                label: (
+                    <NavLink className={cx('navLink')} to="/signin" onClick={handleLogout}>
+                        <span className="icon">{logout}</span>
+                        <span className="label">Sign out</span>
+                    </NavLink>
+                ),
+            },
+        ];
+    }
 
     return (
         <>
             <div className={cx('brand')}>
                 <img src={logo} alt="" />
-                <span className="text-dark">Muse Dashboard</span>
+                <span className="text-dark">Cules Dashboard</span>
             </div>
             <hr />
             <Menu theme="light" mode="inline" items={items}></Menu>
@@ -208,7 +201,7 @@ function Sidebar({ color }) {
                     <h6>Need Help?</h6>
                     <p>Please check our docs</p>
                     <Button type="primary" className="ant-btn-sm ant-btn-block">
-                        DOCUMENTATION
+                        <a href="https://demos.creative-tim.com/muse-ant-design-dashboard/#/docs/grid">DOCUMENTATION</a>
                     </Button>
                 </div>
             </div>
