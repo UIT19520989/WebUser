@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, getAllUsers } from '~/redux/apiRequest';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
-// import { getAllUsers } from '~/redux/apiRequest';
 
 const { Title } = Typography;
 const { confirm } = Modal;
@@ -96,7 +94,7 @@ const Tables = () => {
 
     const handleDelete = async (id) => {
         await deleteUser(dispatch, id);
-        msgState = localStorage.getItem('deleteState');
+        msgState = localStorage.getItem('state');
         openNotificationWithIcon(msgState);
         getAllUsers(dispatch);
 
@@ -150,7 +148,7 @@ const Tables = () => {
                     <>
                         <div className="author-info">
                             <Title level={5}>{item.isAdmin ? 'Admin' : 'User'}</Title>
-                            <p>Developer</p>
+                            <p>{item.isAdmin ? 'Developer' : 'Cules'}</p>
                         </div>
                     </>
                 ),

@@ -128,7 +128,7 @@ const SignUp = () => {
                                 ]}
                             >
                                 <Checkbox>
-                                    I agree the
+                                    I agree the{' '}
                                     <Link to="#p" className="font-bold text-dark">
                                         Terms and Conditions
                                     </Link>

@@ -61,7 +61,7 @@ const Home = () => {
                                 </p>
                             </div>
                             <div className="card-footer">
-                                <Link className="icon-move-right" to="#">
+                                <Link className="icon-move-right" to="https://ant.design/components/overview/">
                                     Read More
                                     <RightOutlined />
                                 </Link>

@@ -2,13 +2,14 @@ import React, { useLayoutEffect, useState } from 'react';
 import BgProfile from '../../assets/imgs/barca-bg.jpg';
 import BgProfile1 from '../../assets/imgs/bg-tech.jpg';
 import BgProfile2 from '../../assets/imgs/bg-profile.jpg';
+import BgProfile3 from '../../assets/imgs/bg-human.jpg';
 import userAvatar from '../../assets/imgs/user.webp';
 import adminAvatar from '../../assets/imgs/admin.png';
 import classNames from 'classnames/bind';
 import styles from './Profile.module.scss';
-import { Avatar, Button, Card, Col, Descriptions, Row, Modal, Input, Typography, Table } from 'antd';
+import { Avatar, Button, Card, Col, Descriptions, Row, Modal, Input, Typography, Table, notification } from 'antd';
 import { deletebtn, pencil } from '~/components/Icons';
-import { deleteUser, updateUser } from '~/redux/apiRequest';
+import { deleteUser, getUserById, updateUser } from '~/redux/apiRequest';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -55,21 +56,22 @@ const columns = [
         },
     },
 ];
-const bg = [BgProfile, BgProfile1, BgProfile2];
+const bg = [BgProfile, BgProfile1, BgProfile2, BgProfile3];
 
 const bgm = bg[Math.floor(Math.random() * bg.length)];
 
 const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [isUpdate, setIsUpdate] = useState(false);
     const [user, setUser] = useState(null);
+    const [isUpdate, setIsUpdate] = useState(false);
 
     let usr = useSelector((state) => state.user.user?.userId);
     const userList = useSelector((state) => state.user.user?.allUsers);
 
     const [usernameUpdate, setUsernameUpdate] = useState('');
     const [emailUpdate, setEmailUpdate] = useState('');
+    const [api, contextHolder] = notification.useNotification();
 
     useLayoutEffect(() => {
         setUser(usr);
@@ -84,17 +86,31 @@ const Profile = () => {
         navigate('/signin');
     };
 
+    const openNotificationWithIcon = (type) => {
+        if (api[type]) {
+            api[type]({
+                message: `Upadate ${type}`,
+            });
+        }
+    };
+
     const handleUpdate = async (username, email, id) => {
         const newData = {
             username: username,
             email: email,
         };
         await updateUser(dispatch, id, newData);
-        usr = {
-            ...usr,
-            ...newData,
-        };
-        setUser(usr);
+        const msgState = localStorage.getItem('state');
+        openNotificationWithIcon(msgState);
+        getUserById(dispatch, id);
+
+        if (msgState === 'success') {
+            usr = {
+                ...usr,
+                ...newData,
+            };
+            setUser(usr);
+        }
     };
 
     const showDeleteConfirm = (id) => {
@@ -138,6 +154,7 @@ const Profile = () => {
         return (
             <>
                 <div className={cx('profile-nav-bg')} style={{ backgroundImage: 'url(' + bgm + ')' }}></div>
+                {contextHolder}
                 <Card
                     className="card-profile-head"
                     bodyStyle={{ display: 'none' }}

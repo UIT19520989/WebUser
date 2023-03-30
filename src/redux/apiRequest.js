@@ -75,10 +75,10 @@ export const deleteUser = async (dispatch, id) => {
             headers,
         });
         dispatch(deleteSuccess(res.data));
-        localStorage.setItem('deleteState', 'success');
+        localStorage.setItem('state', 'success');
     } catch (error) {
         dispatch(deleteFailed(error.response.data));
-        localStorage.setItem('deleteState', 'error');
+        localStorage.setItem('state', 'error');
     }
 };
 
@@ -119,9 +119,9 @@ export const updateUser = async (dispatch, id, newData) => {
             headers,
         });
         dispatch(updateSuccess(res.data, ''));
-        localStorage.setItem('updateState', 'success');
+        localStorage.setItem('state', 'success');
     } catch (error) {
         dispatch(updateFailed(error.response.data));
-        localStorage.setItem('updateState', 'error');
+        localStorage.setItem('state', 'error');
     }
 };
