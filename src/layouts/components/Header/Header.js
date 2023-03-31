@@ -154,8 +154,12 @@ const Header = ({ placement, name, handleSidenavColor, onPress, handleSidenavTyp
                                 <div className="info">
                                     <Title level={5}>Contact us !!</Title>
                                     <ButtonContainer className="contact">
-                                        <Button type="black">{<GithubOutlined />}</Button>
-                                        <Button type="black">{<FacebookFilled />}</Button>
+                                        <Button type="black">
+                                            <Link to="https://github.com/UIT19520989">{<GithubOutlined />}</Link>
+                                        </Button>
+                                        <Button type="black">
+                                            <Link to="https://www.facebook.com/thoaiisme/">{<FacebookFilled />}</Link>
+                                        </Button>
                                     </ButtonContainer>
                                 </div>
                             </div>

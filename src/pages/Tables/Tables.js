@@ -37,7 +37,7 @@ const Tables = () => {
             },
         },
         {
-            title: 'FUNCTION',
+            title: 'ROLE',
             dataIndex: 'function',
             key: 'function',
             sorter: (record1, record2) => {
@@ -49,7 +49,7 @@ const Tables = () => {
         },
 
         {
-            title: 'EMPLOYED',
+            title: 'DATE',
             key: 'employed',
             dataIndex: 'employed',
             sorter: (record1, record2) => {
