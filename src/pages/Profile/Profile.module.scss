@@ -7,6 +7,12 @@
     background-position: 50%;
 }
 
+@media (max-width: 768px) {
+    .profile-nav-bg {
+        margin-top: -128.8px;
+    }
+}
+
 .actionDelete {
     display: flex;
     align-items: center;

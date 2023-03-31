@@ -94,9 +94,6 @@ const Header = ({ placement, name, handleSidenavColor, onPress, handleSidenavTyp
                     </div>
                 </Col>
                 <Col span={24} md={18} className="header-control">
-                    <Button type="link" className="sidebar-toggler" onClick={() => onPress()}>
-                        {toggler}
-                    </Button>
                     <Drawer
                         className="settings-drawer"
                         mask={true}
@@ -181,6 +178,10 @@ const Header = ({ placement, name, handleSidenavColor, onPress, handleSidenavTyp
                         {profile}
                         <span>{username}</span>
                     </Link>
+
+                    <Button type="link" className="sidebar-toggler" onClick={() => onPress()}>
+                        {toggler}
+                    </Button>
                     <Input.Search
                         onSearch={(value) => {
                             handleSearch(value);
