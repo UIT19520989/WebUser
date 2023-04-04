@@ -10,6 +10,14 @@ import './Home.scss';
 const { Title, Text } = Typography;
 
 const Home = () => {
+    const isAdmin = localStorage.getItem('isAdmin');
+    if (isAdmin === 'false') {
+        return (
+            <>
+                <h2 style={{ marginLeft: '16px' }}>Page not found!</h2>
+            </>
+        );
+    }
     return (
         <>
             <Row gutter={[24, 0]}>
@@ -32,7 +40,7 @@ const Home = () => {
                                 <div className="h-full col-content p-20">
                                     <div className="ant-muse">
                                         <Text>Built by developers</Text>
-                                        <Title level={5}>Cules Dashboard for Ant Design</Title>
+                                        <Title level={5}>User Management for Ant Design</Title>
                                         <Paragraph className="lastweek mb-36">
                                             From colors, cards, typography to complex elements, you will find the full
                                             documentation.

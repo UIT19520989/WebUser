@@ -89,7 +89,7 @@ const Profile = () => {
     const openNotificationWithIcon = (type) => {
         if (api[type]) {
             api[type]({
-                message: `Upadate ${type}`,
+                message: `Update ${type}`,
             });
         }
     };
@@ -121,7 +121,6 @@ const Profile = () => {
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                console.log('OK');
                 handleDelete(id);
             },
             onCancel() {
@@ -291,13 +290,13 @@ const Profile = () => {
                                     {user?.updatedAt.slice(0, 10)}
                                 </Descriptions.Item>
                                 <Descriptions.Item label="Social" span={3}>
-                                    <Link to="#" className="mx-5 px-5">
+                                    <Link to="https://twitter.com/" className="mx-5 px-5">
                                         {<TwitterOutlined />}
                                     </Link>
-                                    <Link to="#" className="mx-5 px-5">
+                                    <Link to="https://www.facebook.com/" className="mx-5 px-5">
                                         {<FacebookOutlined style={{ color: '#344e86' }} />}
                                     </Link>
-                                    <Link to="#" className="mx-5 px-5">
+                                    <Link to="https://www.instagram.com/" className="mx-5 px-5">
                                         {<InstagramOutlined style={{ color: '#e1306c' }} />}
                                     </Link>
                                 </Descriptions.Item>

@@ -148,7 +148,7 @@ const Tables = () => {
                     <>
                         <div className="author-info">
                             <Title level={5}>{item.isAdmin ? 'Admin' : 'User'}</Title>
-                            <p>{item.isAdmin ? 'Developer' : 'Cules'}</p>
+                            <p>{item.isAdmin ? 'Developer' : 'Others'}</p>
                         </div>
                     </>
                 ),
@@ -170,7 +170,7 @@ const Tables = () => {
                             showDeleteConfirm(item._id);
                         }}
                     >
-                        <DeleteBtn />
+                        <DeleteBtn id={item._id} />
                     </div>
                 ),
             };
@@ -191,7 +191,6 @@ const Tables = () => {
 
     return (
         <>
-            {/* {msgState ? <Alert message={msg} type={msgState} closable showIcon /> : ''} */}
             {contextHolder}
             <div className="tabled">
                 <Row gutter={[24, 0]}>

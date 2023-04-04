@@ -70,6 +70,10 @@ export const getAllUsers = async (dispatch) => {
 
 export const deleteUser = async (dispatch, id) => {
     dispatch(deleteStart());
+    const token = await localStorage.getItem('accessToken');
+    const headers = {
+        token: `Bearer ${token}`,
+    };
     try {
         const res = await axios.delete(`${BASE_URL_USER}/${id}/delete`, {
             headers,
@@ -114,6 +118,10 @@ export const getUserById = async (dispatch, id) => {
 
 export const updateUser = async (dispatch, id, newData) => {
     dispatch(updateStart());
+    const token = await localStorage.getItem('accessToken');
+    const headers = {
+        token: `Bearer ${token}`,
+    };
     try {
         const res = await axios.put(`${BASE_URL_USER}/${id}/update`, newData, {
             headers,

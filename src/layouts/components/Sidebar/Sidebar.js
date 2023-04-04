@@ -184,7 +184,7 @@ function Sidebar({ isAdmin, color }) {
         <>
             <div className={cx('brand')}>
                 <img src={logo} alt="" />
-                <span className="text-dark">Cules Dashboard</span>
+                <span className="text-dark">User Management</span>
             </div>
             <hr />
             <Menu theme="light" mode="inline" items={items}></Menu>

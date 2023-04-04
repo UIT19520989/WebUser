@@ -48,7 +48,7 @@ function HeaderCo() {
     return (
         <Header>
             <div className="header-col header-brand">
-                <h5>Cules Dashboard</h5>
+                <h5>User Management</h5>
             </div>
             <div className="header-col header-nav">
                 <Menu mode="horizontal" items={items}></Menu>

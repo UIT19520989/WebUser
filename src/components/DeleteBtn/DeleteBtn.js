@@ -4,8 +4,8 @@ import styles from './DeleteBtn.module.scss';
 
 const cx = classNames.bind(styles);
 
-const DeleteBtn = () => {
-    if (localStorage.getItem('isAdmin') === 'true') {
+const DeleteBtn = ({ id }) => {
+    if (localStorage.getItem('isAdmin') === 'true' && localStorage.getItem('id') !== id) {
         return (
             <button className={cx('deleteBtn')}>
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

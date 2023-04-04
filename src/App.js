@@ -15,6 +15,7 @@ function App() {
             localStorage.setItem('setupTime', now);
         }
     }
+
     return (
         <Router>
             <div className="App">
